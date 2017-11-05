@@ -1,16 +1,27 @@
 package com.dkinal.hd.generator;
 
-class OperatingRoom {
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+class OperatingRoom implements BulkInsertable {
     int id; // numer sali
     String section; // oddzial
 
-    static int lastId = -1;
+    List<ProcedureType> allowedProcedures = new LinkedList<>();
 
-    static OperatingRoom operatingRoom(String section) {
-        OperatingRoom r = new OperatingRoom();
-        r.id = ++lastId;
-        r.section = section;
+    private static int lastId = 0; // skip 0
 
-        return r;
+    OperatingRoom(String section) {
+        lastId += ThreadLocalRandom.current().nextInt(15);
+        this.id = lastId;
+        this.section = section;
+
+        this.allowedProcedures = RandomDataGenerator.randomProcedureTypes(3, 15);
+    }
+
+    @Override
+    public String toBulk() {
+        return Bulk.build(List.of(id+"", section));
     }
 }

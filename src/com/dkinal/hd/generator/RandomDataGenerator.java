@@ -1,8 +1,9 @@
 package com.dkinal.hd.generator;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class PersonalDataGenerator {
+public class RandomDataGenerator {
 
     enum Gender {
         MALE,
@@ -10,7 +11,8 @@ public class PersonalDataGenerator {
     }
 
     private static String[] femaleNames = {
-            "Ada", "Adela", "Adelajda", "Adrianna", "Agata", "Agnieszka", "Aldona", "Aleksandra", "Alicja", "Alina", "Amanda", "Amelia", "Anastazja", "Andżelika", "Aneta", "Anita", "Anna", "Antonina",
+            "Ada", "Adela", "Adelajda", "Adrianna", "Agata", "Agnieszka", "Aldona", "Aleksandra", "Alicja", "Alina",
+            "Amanda", "Amelia", "Anastazja", "Andżelika", "Aneta", "Anita", "Anna", "Antonina",
             "Barbara", "Beata", "Berenika", "Bernadeta", "Blanka", "Bogusława", "Bożena",
             "Cecylia", "Celina", "Czesława",
             "Dagmara", "Danuta", "Daria", "Diana", "Dominika", "Dorota",
@@ -20,10 +22,13 @@ public class PersonalDataGenerator {
             "Halina", "Hanna", "Helena",
             "Iga", "Ilona", "Irena", "Irmina", "Iwona", "Izabela",
             "Jadwiga", "Janina", "Joanna", "Jolanta", "Jowita", "Judyta", "Julia", "Julita", "Justyna",
-            "Kamila", "Karina", "Karolina", "Katarzyna", "Kazimiera", "Kinga", "Klaudia", "Kleopatra", "Kornelia", "Krystyna",
+            "Kamila", "Karina", "Karolina", "Katarzyna", "Kazimiera", "Kinga", "Klaudia", "Kleopatra", "Kornelia",
+            "Krystyna",
             "Laura", "Lena", "Leokadia", "Lidia", "Liliana", "Lucyna", "Ludmiła", "Luiza",
             "Łucja",
-            "Magdalena", "Maja", "Malwina", "Małgorzata", "Marcelina", "Maria", "Marianna", "Mariola", "Marlena", "Marta", "Martyna", "Marzanna", "Marzena", "Matylda", "Melania", "Michalina", "Milena", "Mirosława", "Monika",
+            "Magdalena", "Maja", "Malwina", "Małgorzata", "Marcelina", "Maria", "Marianna", "Mariola", "Marlena",
+            "Marta", "Martyna", "Marzanna", "Marzena", "Matylda", "Melania", "Michalina", "Milena", "Mirosława",
+            "Monika",
             "Nadia", "Natalia", "Natasza", "Nikola", "Nina",
             "Olga", "Oliwia", "Otylia",
             "Pamela", "Patrycja", "Paula", "Paulina",
@@ -37,8 +42,10 @@ public class PersonalDataGenerator {
     };
 
     private static String[] maleNames = {
-            "Adam", "Adolf", "Adrian", "Albert", "Aleksander", "Aleksy", "Alfred", "Amadeusz", "Andrzej", "Antoni", "Arkadiusz", "Arnold", "Artur",
-            "Bartłomiej", "Bartosz", "Benedykt", "Beniamin", "Bernard", "Błażej", "Bogdan", "Bogumił", "Bogusław", "Bolesław", "Borys", "Bronisław",
+            "Adam", "Adolf", "Adrian", "Albert", "Aleksander", "Aleksy", "Alfred", "Amadeusz", "Andrzej", "Antoni",
+            "Arkadiusz", "Arnold", "Artur",
+            "Bartłomiej", "Bartosz", "Benedykt", "Beniamin", "Bernard", "Błażej", "Bogdan", "Bogumił", "Bogusław",
+            "Bolesław", "Borys", "Bronisław",
             "Cezary", "Cyprian", "Cyryl", "Czesław",
             "Damian", "Daniel", "Dariusz", "Dawid", "Dionizy", "Dominik", "Donald",
             "Edward", "Emanuel", "Emil", "Eryk", "Eugeniusz",
@@ -50,7 +57,8 @@ public class PersonalDataGenerator {
             "Kacper", "Kajetan", "Kamil", "Karol", "Kazimierz", "Klaudiusz", "Konrad", "Krystian", "Krzysztof",
             "Lech", "Leon", "Leszek", "Lucjan", "Ludwik",
             "Łukasz",
-            "Maciej", "Maksymilian", "Marceli", "Marcin", "Marek", "Marian", "Mariusz", "Mateusz", "Michał", "Mieczysław", "Mikołaj", "Miłosz", "Mirosław",
+            "Maciej", "Maksymilian", "Marceli", "Marcin", "Marek", "Marian", "Mariusz", "Mateusz", "Michał",
+            "Mieczysław", "Mikołaj", "Miłosz", "Mirosław",
             "Nikodem", "Norbert",
             "Olaf", "Olgierd", "Oskar",
             "Patryk", "Paweł", "Piotr", "Przemysław",
@@ -62,92 +70,24 @@ public class PersonalDataGenerator {
     };
 
     private static String[] femaleSurnames = {
-            "nowak",
-            "kowalska",
-            "wiśniewska",
-            "wójcik",
-            "kowalczyk",
-            "kamińska",
-            "lewandowska",
-            "dąbrowska",
-            "zielińska",
-            "szymańska",
-            "woźniak",
-            "kozłowska",
-            "jankowska",
-            "wojciechowska",
-            "kwiatkowska",
-            "mazur",
-            "krawczyk",
-            "piotrowska",
-            "kaczmarek",
-            "grabowska",
-            "pawłowska",
-            "michalska",
-            "zając",
-            "król",
-            "nowakowska",
-            "wieczorek",
-            "jabłońska",
-            "majewska",
-            "adamczyk",
-            "wróbel",
-            "nowicka",
-            "dudek",
-            "olszewska",
-            "jaworska",
-            "malinowska",
-            "stępień",
-            "górska",
-            "pawlak",
-            "witkowska",
-            "walczak",
-            "rutkowska",
-            "sikora"
+            "nowak", "kowalska", "wiśniewska", "wójcik", "kowalczyk", "kamińska", "lewandowska", "dąbrowska",
+            "zielińska", "szymańska", "woźniak", "kozłowska", "jankowska", "wojciechowska", "kwiatkowska", "mazur",
+            "krawczyk", "piotrowska", "kaczmarek", "grabowska", "pawłowska", "michalska", "zając", "król", "nowakowska",
+            "wieczorek", "jabłońska", "majewska", "adamczyk", "wróbel", "nowicka", "dudek", "olszewska", "jaworska",
+            "malinowska", "stępień", "górska", "pawlak", "witkowska", "walczak", "rutkowska", "sikora"
     };
 
     private static String[] maleSurnames = {
-            "nowak",
-            "kowalski",
-            "wiśniewski",
-            "wójcik",
-            "kowalczyk",
-            "kamiński",
-            "lewandowski",
-            "dąbrowski",
-            "zieliński",
-            "szymański",
-            "woźniak",
-            "kozłowski",
-            "jankowski",
-            "mazur"
+            "nowak", "kowalski", "wiśniewski", "wójcik", "kowalczyk", "kamiński", "lewandowski", "dąbrowski",
+            "zieliński", "szymański", "woźniak", "kozłowski", "jankowski", "mazur"
     };
 
     private static String[] streets = {
-            "al. Zwycięstwa",
-            "ul. Bulońska",
-            "ul. Mieszewskiego",
-            "ul. Do studzienki",
-            "ul. Zacna",
-            "ul. Białoruska",
-            "ul. Romańska",
-            "ul. Złota",
-            "ul. Szeroka",
-            "ul. Długa",
-            "ul. Kartuska",
-            "ul. Tadeusza Kościuszki",
-            "ul. Bolesława Chrobrego",
-            "ul. Adama Mickiewicza",
-            "ul. Żywiecka",
-            "ul. Saperów",
-            "ul. Wajdeloty",
-            "ul. Dmowskiego",
-            "ul. Partyzantów",
-            "ul. Stefana Batorego",
-            "ul. Żaglowa",
-            "ul. Swojska",
-            "al. gen. Józefa Hallera",
-            "ul. Dąbrowszczaków"
+            "al. Zwycięstwa", "ul. Bulońska", "ul. Mieszewskiego", "ul. Do studzienki", "ul. Zacna", "ul. Białoruska",
+            "ul. Romańska", "ul. Złota", "ul. Szeroka", "ul. Długa", "ul. Kartuska", "ul. Tadeusza Kościuszki",
+            "ul. Bolesława Chrobrego", "ul. Adama Mickiewicza", "ul. Żywiecka", "ul. Saperów", "ul. Wajdeloty",
+            "ul. Dmowskiego", "ul. Partyzantów", "ul. Stefana Batorego", "ul. Żaglowa", "ul. Swojska",
+            "al. gen. Józefa Hallera", "ul. Dąbrowszczaków"
     };
 
     static String[] doctorPositions = {
@@ -171,61 +111,82 @@ public class PersonalDataGenerator {
     private static Map<Gender, String[]> names = Map.of(Gender.FEMALE, femaleNames, Gender.MALE, maleNames);
     private static Map<Gender, String[]> surnames = Map.of(Gender.FEMALE, femaleSurnames, Gender.MALE, maleSurnames);
 
-    static Random random = new Random();
-
     static Gender randomGender() {
-        return random.nextBoolean() ? Gender.MALE : Gender.FEMALE;
+        return ThreadLocalRandom.current().nextBoolean() ? Gender.MALE : Gender.FEMALE;
     }
 
     static String randomName(Gender gender) {
         String[] nameList = names.get(gender);
 
-        return formatName(nameList[random.nextInt(nameList.length)]);
+        return formatName(nameList[ThreadLocalRandom.current().nextInt(nameList.length)]);
     }
 
     static String randomSurname(Gender gender) {
         String[] surnameList = surnames.get(gender);
 
-        return formatName(surnameList[random.nextInt(surnameList.length)]);
+        return formatName(surnameList[ThreadLocalRandom.current().nextInt(surnameList.length)]);
     }
 
     static String randomPesel() {
         StringBuilder sb = new StringBuilder();
 
-        int age = random.nextInt(63) + 18; // 18-80
+        int age = ThreadLocalRandom.current().nextInt(18, 81); // 18-80
         int year = 117 - age; // 2017 - age
         sb.append(year);
-        int month = random.nextInt(12) + 1;
-        if(month < 10)
+        int month = ThreadLocalRandom.current().nextInt(1, 13);
+        if (month < 10)
             sb.append(0);
         sb.append(month);
-        int day = random.nextInt(30) + 1;
-        if(day < 10)
+        int day = ThreadLocalRandom.current().nextInt(1,31);
+        if (day < 10)
             sb.append(0);
         sb.append(day);
 
-        for(int i = 0; i < 5; i++)
-            sb.append(random.nextInt(10));
+        for (int i = 0; i < 5; i++)
+            sb.append(ThreadLocalRandom.current().nextInt(10));
 
         return sb.toString();
     }
 
     static String randomAddress() {
         StringBuilder sb = new StringBuilder();
-        String street = streets[random.nextInt(streets.length)];
+        String street = streets[ThreadLocalRandom.current().nextInt(streets.length)];
 
         return sb.
                 append(street)
                 .append(" ")
-                .append(random.nextInt(150) + 1)
+                .append(ThreadLocalRandom.current().nextInt(1, 150))
                 .append(", 80-1")
-                .append(random.nextInt(90) + 10)
+                .append(ThreadLocalRandom.current().nextInt(10, 100))
                 .append(" Gdańsk")
                 .toString();
     }
 
     static String randomDoctorPosition() {
-        return doctorPositions[random.nextInt(doctorPositions.length)];
+        return doctorPositions[ThreadLocalRandom.current().nextInt(doctorPositions.length)];
+    }
+
+    static String randomSection() {
+        return sections[ThreadLocalRandom.current().nextInt(sections.length)];
+    }
+
+    static List<ProcedureType> randomProcedureTypes(int min, int max) {
+        List<ProcedureType> types = new LinkedList<>();
+        int amount = ThreadLocalRandom.current().nextInt(max - min + 1) + min;
+        for (int i = 0; i < amount; i++) {
+            ProcedureType procedure = ProcedureType.randomProcedureType();
+
+            if (!types.contains(procedure)) {
+                types.add(procedure);
+            }
+        }
+
+        return types;
+    }
+
+    static Date randomDate(Date from, Date to) {
+        long timestamp = ThreadLocalRandom.current().nextLong(from.getTime(), to.getTime());
+        return new Date(timestamp);
     }
 
     static Date getBirthDate(String pesel) {

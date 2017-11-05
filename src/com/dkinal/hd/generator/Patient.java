@@ -1,11 +1,11 @@
 package com.dkinal.hd.generator;
 
-import java.util.Date;
+import java.util.*;
 
-class Patient {
+class Patient implements BulkInsertable {
     String name;
     String surname;
-    PersonalDataGenerator.Gender gender;
+    RandomDataGenerator.Gender gender;
     String pesel;
     Date birthDate;
     String section; // oddzial
@@ -13,32 +13,33 @@ class Patient {
     String address; // adres zameldowania
     int bed; // lozko
 
+    static Map<String, Map<String, Object>> updates = new HashMap<>();
+
     static Patient randomPatient() {
         Patient p = new Patient();
 
-        p.gender = PersonalDataGenerator.randomGender();
-        p.name = PersonalDataGenerator.randomName(p.gender);
-        p.surname = PersonalDataGenerator.randomSurname(p.gender);
-        p.pesel = PersonalDataGenerator.randomPesel();
-        p.birthDate = PersonalDataGenerator.getBirthDate(p.pesel);
-        p.room = PersonalDataGenerator.random.nextInt(300) + 100;
-        p.address = PersonalDataGenerator.randomAddress();
-        p.bed = PersonalDataGenerator.random.nextInt(5) + 1; // 1 - 5
+        p.gender = RandomDataGenerator.randomGender();
+        p.name = RandomDataGenerator.randomName(p.gender);
+        p.surname = RandomDataGenerator.randomSurname(p.gender);
+        p.pesel = RandomDataGenerator.randomPesel();
+        p.birthDate = RandomDataGenerator.getBirthDate(p.pesel);
+//        p.section = RandomDataGenerator.randomSection();
+//        p.room = ThreadLocalRandom.current().nextInt(300) + 100;
+        p.address = RandomDataGenerator.randomAddress();
+//        p.bed = ThreadLocalRandom.current().nextInt(5) + 1; // 1 - 5
 
         return p;
     }
 
+    void update() {
+        surname = RandomDataGenerator.randomSurname(gender);
+        address = RandomDataGenerator.randomAddress();
+
+        updates.put(pesel, Map.of("Nazwisko", surname));
+    }
+
     @Override
-    public String toString() {
-        return "Patient{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", gender=" + gender +
-                ", pesel='" + pesel + '\'' +
-                ", birthDate=" + birthDate +
-                ", section='" + section + '\'' +
-                ", room=" + room +
-                ", address='" + address + '\'' +
-                '}';
+    public String toBulk() {
+        return Bulk.build(List.of(pesel, name, surname));
     }
 }
