@@ -130,7 +130,7 @@ class Generator {
 
         for(Doctor doctor: doctorList) {
             for(ProcedureType type: doctor.allowedProcedures) {
-                sb.append(doctor.pesel).append('|').append(type.id).append('\n');
+                sb.append(doctor.pesel).append('|').append(type.id).append("\r\n");
             }
         }
 
@@ -146,7 +146,7 @@ class Generator {
 
         for(OperatingRoom room: operatingRoomList) {
             for(ProcedureType type: room.allowedProcedures) {
-                sb.append(room.id).append('|').append(type.id).append('\n');
+                sb.append(room.id).append('|').append(type.id).append("\r\n");
             }
         }
 
@@ -165,7 +165,7 @@ class Generator {
         StringBuilder sb = new StringBuilder();
 
         for(BulkInsertable p: list) {
-            sb.append(p.toBulk()).append('\n');
+            sb.append(p.toBulk()).append("\r\n");
         }
 
         return sb.toString();

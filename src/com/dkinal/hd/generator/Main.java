@@ -1,5 +1,6 @@
 package com.dkinal.hd.generator;
 
+import java.io.*;
 import java.util.Date;
 
 public class Main {
@@ -17,26 +18,26 @@ public class Main {
 
         // Generate SQL
 
-        // TODO: save to Pacjent.bulk
         String patients = g.generatePatientsBulk();
+        writeToFile("bulks/Pacjent.bulk", patients);
 
-        // TODO: Save to Lekarz.bulk
         String doctors = g.generateDoctorsBulk();
+        writeToFile("bulks/Lekarz.bulk", doctors);
 
-        // TODO: Save to TypZabiegu.bulk
         String procedureTypes = g.generateProcedureTypesBulk();
+        writeToFile("bulks/TypZabiegu.bulk", procedureTypes);
 
-        // TODO: Save to MozeWykonywac.bulk
         String doctorsAllowedProcedures = g.generateDoctorsAllowedProceduresBulk();
+        writeToFile("bulks/MozeWykonywac.bulk", doctorsAllowedProcedures);
 
-        // TODO: Save to SalaOperacyjna.bulk
         String operatingRooms = g.generateOperatingRoomsBulk();
+        writeToFile("bulks/SalaOperacyjna.bulk", operatingRooms);
 
-        // TODO: Save to JestPrzystosowana.bulk
         String operatingRoomsAllowedProcedures = g.generateOperatingRoomsAllowedProceduresBulk();
+        writeToFile("bulks/JestPrzystosowana.bulk", operatingRoomsAllowedProcedures);
 
-        // TODO: Save to Zabieg.bulk
         String procedures = g.generateProceduresBulk();
+        writeToFile("bulks/Zabieg.bulk", procedures);
 
         // Generate CSV
         g.generateNewPatients(15);
@@ -51,5 +52,12 @@ public class Main {
 
         // Generate CSV
 
+    }
+
+    private static void writeToFile(String filename, String data) {
+        try (Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-16"))) {
+            out.write(data);
+        } catch (IOException e) {
+        }
     }
 }

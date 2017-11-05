@@ -13,7 +13,7 @@ class OperatingRoom implements BulkInsertable {
     private static int lastId = 0; // skip 0
 
     OperatingRoom(String section) {
-        lastId += ThreadLocalRandom.current().nextInt(15);
+        lastId += ThreadLocalRandom.current().nextInt(15) + 1;
         this.id = lastId;
         this.section = section;
 
