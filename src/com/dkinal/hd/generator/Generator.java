@@ -6,7 +6,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class Generator {
 
-    final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    final static SimpleDateFormat DATETIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     private final static long YEAR = 365L * 24 * 60 * 60 * 1000;
 
     List<Patient> patientList = new LinkedList<>();
@@ -121,6 +122,10 @@ class Generator {
         return generateBulk(patientList);
     }
 
+    String generateNewPatientsBulk() {
+        return generateBulk(newPatientList);
+    }
+
     String generateDoctorsBulk() {
         return generateBulk(doctorList);
     }
@@ -161,6 +166,35 @@ class Generator {
         return generateBulk(procedureList);
     }
 
+    String generateNewProceduresBulk() {
+        return generateBulk(newProcedureList);
+    }
+
+    String generateDoctorsCSV() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Doctor.CSVHeader).append("\r\n");
+
+        for(CSVInsertable p: doctorList) {
+            sb.append(p.toCSV()).append("\r\n");
+        }
+
+        return sb.toString();
+    }
+
+    String generatePatientsCSV() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Patient.CSVHeader).append("\r\n");
+
+        for(CSVInsertable p: patientList) {
+            sb.append(p.toCSV()).append("\r\n");
+        }
+        for(CSVInsertable p: newPatientList) {
+            sb.append(p.toCSV()).append("\r\n");
+        }
+
+        return sb.toString();
+    }
+
     private String generateBulk(List<? extends BulkInsertable> list) {
         StringBuilder sb = new StringBuilder();
 
@@ -174,6 +208,4 @@ class Generator {
     private OperatingRoom findRoomForProcedure(ProcedureType procedureType) {
         return operatingRoomList.stream().filter(r -> r.allowedProcedures.contains(procedureType)).findFirst().orElse(null);
     }
-
-
 }

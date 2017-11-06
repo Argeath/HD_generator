@@ -17,7 +17,7 @@ class Procedure implements BulkInsertable {
 
     static int lastId = 0;
 
-    static Map<Integer, Map<String, Object>> updates = new HashMap<>();
+    static Map<Integer, Map<String, String>> updates = new HashMap<>();
 
     Procedure(Patient patient, ProcedureType procedureType, Doctor doctor, OperatingRoom room, int reservation, Date register, Date procedure, Date current) {
         this.id = lastId++;
@@ -41,7 +41,7 @@ class Procedure implements BulkInsertable {
                 dateOfEnd = dateOfProcedure;
 
                 if (generateUpdates) {
-                    updates.put(id, Map.of("Status", status, "DataZakonczenia", dateOfEnd));
+                    updates.put(id, Map.of("Status", status, "DataZakonczenia", Generator.DATETIME_FORMAT.format(dateOfEnd)));
                 }
                 return;
             }
@@ -63,7 +63,7 @@ class Procedure implements BulkInsertable {
         }
 
         if (generateUpdates && !statusBefore.equals(status)) {
-            updates.put(id, Map.of("Status", status, "DataZakonczenia", dateOfEnd));
+            updates.put(id, Map.of("Status", status, "DataZakonczenia",  Generator.DATETIME_FORMAT.format(dateOfEnd)));
         }
     }
 
@@ -74,10 +74,28 @@ class Procedure implements BulkInsertable {
                                   doctorPesel,
                                   operatingRoomId + "",
                                   procedureType.id + "",
-                                  Generator.DATE_FORMAT.format(dateOfRegister),
-                                  Generator.DATE_FORMAT.format(dateOfProcedure),
+                                  Generator.DATETIME_FORMAT.format(dateOfRegister),
+                                  Generator.DATETIME_FORMAT.format(dateOfProcedure),
                                   status,
                                   reservationInSeconds + "",
-                                  dateOfEnd == null ? "null" : Generator.DATE_FORMAT.format(dateOfEnd)));
+                                  dateOfEnd == null ? "null" : Generator.DATETIME_FORMAT.format(dateOfEnd)));
+    }
+
+    public static String generateSQLUpdates() {
+        StringBuilder sb = new StringBuilder();
+
+        for(Map.Entry<Integer, Map<String, String>> e: updates.entrySet()) {
+            sb.append("UPDATE dbo.Zabieg SET ");
+
+            for(Map.Entry<String, String> o: e.getValue().entrySet()) {
+                sb.append(o.getKey()).append(" = '").append(o.getValue()).append("',");
+            }
+
+            sb.deleteCharAt(sb.length() - 1); // remove last ,
+
+            sb.append(" WHERE ID = ").append(e.getKey()).append(";\r\n");
+        }
+
+        return sb.toString();
     }
 }

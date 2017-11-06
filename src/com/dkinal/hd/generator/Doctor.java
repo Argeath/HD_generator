@@ -3,7 +3,7 @@ package com.dkinal.hd.generator;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-class Doctor implements BulkInsertable {
+class Doctor implements BulkInsertable, CSVInsertable {
 
     String name;
     String surname;
@@ -39,4 +39,11 @@ class Doctor implements BulkInsertable {
     public String toBulk() {
         return Bulk.build(List.of(pesel, name, surname));
     }
+
+    @Override
+    public String toCSV() {
+        return Bulk.build(List.of(pesel, section, address, room+"", name, surname, position));
+    }
+
+    static String CSVHeader = Bulk.build(List.of("Pesel", "Oddział", "Adres zameldowania", "Gabinet", "Imię", "Nazwisko", "Stanowisko"));
 }
